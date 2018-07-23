@@ -37,6 +37,7 @@ namespace ASPVisitorManagement
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<VisitorDbContext>(options => options.UseSqlite("Data Source = VMan.db"));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
