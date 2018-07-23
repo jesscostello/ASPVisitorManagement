@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ASPVisitorManagement.Models.StaffNames>
+
+@{
+    ViewData["Title"] = ViewBag.StaffTitle;
+}
+<div class="jumbotron">
+    <div class="row">
+        <h2 class="col-sm-6"><span class="glyphicon glyphicon-user"></span> @ViewBag.StaffTitle</h2>
+        <p class="col-sm-6">
+            <a asp-action="Create"><button class="btn-default btn-lg">Create New</button></a>
+        </p>
+    </div>
+</div>
+<p>
+    Total staff = 
+    @ViewBag.StaffCount
+</p>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VisitorCount)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitorCount)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="text-success"><span class="glyphicon glyphicon-edit"></span> Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id"> <span class="glyphicon glyphicon-list-alt"></span> Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
