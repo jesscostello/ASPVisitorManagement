@@ -10,41 +10,22 @@ using ASPVisitorManagement.Models;
 
 namespace ASPVisitorManagement.Controllers
 {
-    public class StaffNamesController : Controller
+    public class VisitorsController : Controller
     {
         private readonly VisitorDbContext _context;
 
-        // Dependency injection
-        public StaffNamesController(VisitorDbContext context)
+        public VisitorsController(VisitorDbContext context)
         {
             _context = context;
         }
 
-        // GET: StaffNames
+        // GET: Visitors
         public async Task<IActionResult> Index()
         {
-            var staff = await _context.StaffNames.ToListAsync();
-            int counter = 0;
-            foreach (var eachperson in staff)
-            {
-                if (eachperson.Id == 1)
-                {
-                    eachperson.Name += " not our staff";
-                }
-
-                counter++;
-            }
-
-            ViewBag.StaffTitle = "All Staff";
-            ViewBag.StaffCount = counter;
-            return View(staff);
-
-            // same as...
-            //ViewBag.StaffTitle = "All Staff";
-            //return View(await _context.StaffNames.ToListAsync());
+            return View(await _context.Visitor.ToListAsync());
         }
 
-        // GET: StaffNames/Details/5
+        // GET: Visitors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,39 +33,39 @@ namespace ASPVisitorManagement.Controllers
                 return NotFound();
             }
 
-            var staffNames = await _context.StaffNames
+            var visitor = await _context.Visitor
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (staffNames == null)
+            if (visitor == null)
             {
                 return NotFound();
             }
 
-            return View(staffNames);
+            return View(visitor);
         }
 
-        // GET: StaffNames/Create
+        // GET: Visitors/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: StaffNames/Create
+        // POST: Visitors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Department,VisitorCount")] StaffNames staffNames)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Business,DateIn,DateOut")] Visitor visitor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(staffNames);
+                _context.Add(visitor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(staffNames);
+            return View(visitor);
         }
 
-        // GET: StaffNames/Edit/5
+        // GET: Visitors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -92,22 +73,22 @@ namespace ASPVisitorManagement.Controllers
                 return NotFound();
             }
 
-            var staffNames = await _context.StaffNames.FindAsync(id);
-            if (staffNames == null)
+            var visitor = await _context.Visitor.FindAsync(id);
+            if (visitor == null)
             {
                 return NotFound();
             }
-            return View(staffNames);
+            return View(visitor);
         }
 
-        // POST: StaffNames/Edit/5
+        // POST: Visitors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Department,VisitorCount")] StaffNames staffNames)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Business,DateIn,DateOut")] Visitor visitor)
         {
-            if (id != staffNames.Id)
+            if (id != visitor.Id)
             {
                 return NotFound();
             }
@@ -116,12 +97,12 @@ namespace ASPVisitorManagement.Controllers
             {
                 try
                 {
-                    _context.Update(staffNames);
+                    _context.Update(visitor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StaffNamesExists(staffNames.Id))
+                    if (!VisitorExists(visitor.Id))
                     {
                         return NotFound();
                     }
@@ -132,10 +113,10 @@ namespace ASPVisitorManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(staffNames);
+            return View(visitor);
         }
 
-        // GET: StaffNames/Delete/5
+        // GET: Visitors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,30 +124,30 @@ namespace ASPVisitorManagement.Controllers
                 return NotFound();
             }
 
-            var staffNames = await _context.StaffNames
+            var visitor = await _context.Visitor
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (staffNames == null)
+            if (visitor == null)
             {
                 return NotFound();
             }
 
-            return View(staffNames);
+            return View(visitor);
         }
 
-        // POST: StaffNames/Delete/5
+        // POST: Visitors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var staffNames = await _context.StaffNames.FindAsync(id);
-            _context.StaffNames.Remove(staffNames);
+            var visitor = await _context.Visitor.FindAsync(id);
+            _context.Visitor.Remove(visitor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StaffNamesExists(int id)
+        private bool VisitorExists(int id)
         {
-            return _context.StaffNames.Any(e => e.Id == id);
+            return _context.Visitor.Any(e => e.Id == id);
         }
     }
 }
