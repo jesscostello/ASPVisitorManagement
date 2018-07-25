@@ -23,21 +23,34 @@ namespace ASPVisitorManagement.Controllers
         // GET: StaffNames
         public async Task<IActionResult> Index()
         {
-            var staff = await _context.StaffNames.ToListAsync();
-            int counter = 0;
-            foreach (var eachperson in staff)
-            {
-                if (eachperson.Id == 1)
-                {
-                    eachperson.Name += " not our staff";
-                }
+            var StaffNamesMethod = _context.StaffNames.Where(s => s.Name == "Gary Dix").OrderByDescending(s => s.VisitorCount).ToListAsync();
 
-                counter++;
-            }
+            var StaffNamesQuery = 
+                (from s in _context.StaffNames
+                where s.Name == "Gary Dix"
+                orderby s.VisitorCount descending 
+                select s).ToListAsync();
+
+            var shortest = _context.StaffNames.Min(s => s.Name.Length);
+            
+            //var staff = await _context.StaffNames.ToListAsync();
+            int counter = 0;
+            //foreach (var eachperson in staff)
+            //{
+            //    if (eachperson.Id == 1)
+            //    {
+            //        eachperson.Name += " not our staff";
+            //    }
+
+            //    counter++;
+            //}
 
             ViewBag.StaffTitle = "All Staff";
             ViewBag.StaffCount = counter;
-            return View(staff);
+            //return View(staff);
+
+            //return View(await StaffNamesMethod);
+            return View(await StaffNamesQuery);
 
             // same as...
             //ViewBag.StaffTitle = "All Staff";
