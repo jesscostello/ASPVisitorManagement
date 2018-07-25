@@ -11,6 +11,7 @@ namespace ASPVisitorManagement.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        [Required (ErrorMessage = "This is the error message")]
         public string Department { get; set; }
         public int VisitorCount { get; set; }
     }

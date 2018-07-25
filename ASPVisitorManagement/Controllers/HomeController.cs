@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPVisitorManagement.Models;
+using ASPVisitorManagement.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration.CommandLine;
 
 namespace ASPVisitorManagement.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITextFileOperations _textFileOperations;
+
+        public HomeController(ITextFileOperations textFileOperations)
+        {
+            _textFileOperations = textFileOperations;
+        }
+
         public IActionResult Index()
         {
+            ViewData["Conditions"] = _textFileOperations.LoadCondiditonsForAcceptanceText();
             return View();
         }
 

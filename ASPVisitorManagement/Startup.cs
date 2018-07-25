@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASPVisitorManagement.Data;
+using ASPVisitorManagement.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,12 +35,16 @@ namespace ASPVisitorManagement
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // and this
+            services.AddSingleton<ITextFileOperations, TextFileOperations>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             
             // Add this line
             services.AddDbContext<VisitorDbContext>(options => options.UseSqlite("Data Source = VMan.db"));
+            
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
