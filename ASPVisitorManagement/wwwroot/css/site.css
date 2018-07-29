@@ -1,11 +1,15 @@
-﻿.navbar-fixed-top {
-    background-color: orange;
+﻿.navbar {
+    background-color: cadetblue;
 }
 
-.navbar-fixed-top a {
-    color: black;
+.navbar-fixed-top ul li a, .navbar-brand, .navbar-text {
+    color: black !important;
+    border-bottom: solid transparent 2px;
 }
 
+.navbar-fixed-top ul li a:hover {
+    border-bottom: solid white 2px;
+}
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */

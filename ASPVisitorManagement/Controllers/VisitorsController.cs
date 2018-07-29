@@ -56,6 +56,17 @@ namespace ASPVisitorManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Business,DateIn,DateOut")] Visitor visitor)
         {
+            visitor.DateIn = DateTime.Now;
+            visitor.DateOut = DateTime.Now;
+
+            StaffNames myNames = new StaffNames();
+            myNames.Id = 4;
+            myNames.Department = "asasa";
+            myNames.Name = "Howard the axe killer";
+            myNames.VisitorCount = 2;
+
+            visitor.StaffName = myNames;
+
             if (ModelState.IsValid)
             {
                 _context.Add(visitor);
