@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-ASPVisitorManagement-83D22566-B9C9-4F5A-B363-65B42E8F472E</UserSecretsId>
+    <ApplicationIcon />
   </PropertyGroup>
 
   <ItemGroup>
