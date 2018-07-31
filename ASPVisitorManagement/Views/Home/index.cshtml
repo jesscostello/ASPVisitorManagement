@@ -1,0 +1,80 @@
+﻿@using System.Collections
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Header -->
+<header id="header">
+    <div class="intro text-center">
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="intro-text">
+                        <h1>Welcome to <span class="brand">Studio7</span></h1>
+                        <p>We are a digital agency that loves what we do</p>
+                        <a href="#services" class="btn btn-default btn-lg page-scroll">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Services Section -->
+<div id="services" class="text-center">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2 section-title">
+            <h2>Our Services</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam. Sed commodo nibh ante facilisis bibendum dolor apibus lornare diam commodo nibh.</p>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <i class="fa fa-desktop"></i>
+                <h4>Web Design</h4>
+                <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <i class="fa fa-gears"></i>
+                <h4>App Development</h4>
+                <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque.</p>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <i class="fa fa-rocket"></i>
+                <h4>Branding</h4>
+                <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam.</p>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <i class="fa fa-line-chart"></i>
+                <h4>Marketing</h4>
+                <p>Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About Section -->
+<div id="about">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in (IEnumerable)ViewData["Conditions"])
+            {
+                if (item.ToString().Contains("Heading"))
+                {
+                    <div class="form-group col-xs-12 col-md-12">
+                        <h3> @item.ToString().Replace("Heading", "")</h3>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-6 col-md-3 text-left">
+                        @item.ToString()
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- Portfolio Section -->
+<div id="portfolio">
+    <div class="container">
+        @await Html.PartialAsync("~/Views/Visitors/Create.cshtml")
+    </div>
+</div>
